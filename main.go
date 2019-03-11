@@ -18,7 +18,6 @@ var (
 )
 
 func main() {
-
 	server01 := &http.Server{
 		Addr:         ":443",
 		Handler:      frontend(),
@@ -26,18 +25,11 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 	/* used for development */
-	// server02 := &http.Server{
-	// 	Addr:         ":3001",
-	// 	Handler:      localServer(),
-	// 	ReadTimeout:  5 * time.Second,
-	// 	WriteTimeout: 10 * time.Second,
-	// }
+
 	g.Go(func() error {
 		return server01.ListenAndServe()
 	})
-	// g.Go(func() error {
-	// 	return server02.ListenAndServe()
-	// })
+
 	if err := g.Wait(); err != nil {
 		log.Fatal(err)
 	}
@@ -62,14 +54,3 @@ func frontend() http.Handler {
 	return app
 }
 
-// func localServer() http.Handler {
-// 	app := gin.New()
-// 	app.Use(gin.Recovery())
-// 	app.Use(static.Serve("/", static.LocalFile("./pkg/build", false)))
-// 	//allows all connection requests
-// 	app.Use(cors.Default())
-
-// 	//set up contact form endpoint
-
-// 	return app
-// }
