@@ -41,9 +41,7 @@ func frontend() http.Handler {
 	app.Use(static.Serve("/", static.LocalFile("./pkg/build", false)))
 	//allows all connection requests
 	app.Use(cors.Default())
-
-	//use contact form endpoint
-
+	
 	m := autocert.Manager{
 		Prompt:     autocert.AcceptTOS,
 		HostPolicy: autocert.HostWhitelist("foxchrisrealthe.com"),
